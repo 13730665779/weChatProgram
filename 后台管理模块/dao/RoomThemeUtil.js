@@ -16,9 +16,9 @@ function RoomThemeUtil() {
     }
 
     //插入数据
-    this.inserTheme = function (theme,introduction) {
+    this.inserTheme = function (theme,introduction,image_key) {
         //1,编写sql语句
-        var ThemeAddSql = 'INSERT INTO room_theme_table(theme,introduction) VALUES(?,?)';
+        var ThemeAddSql = 'INSERT INTO room_theme_table(id,theme,introduction,image_key) VALUES(null,?,?,?)';
         var ThemeAddSql_Params = [theme,introduction];
         //2,进行插入操作
         /**

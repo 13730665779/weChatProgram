@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <script src="js/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <title>自然风光主题酒店</title>
     <style>
     .header{
@@ -15,6 +16,16 @@
         line-height: 50px;
     }
     </style>
+    <script>
+        $(function () {
+            $(".nav_tab").click(function () {
+                if(!$(this).hasClass('active')){
+                    $(this).addClass('active');
+                    $(this).siblings().removeClass('active');
+                }
+            });
+        })
+    </script>
 </head>
 <body>
 <div class="container">
@@ -24,20 +35,21 @@
     <div class="row-fluid">
         <div class="span12">
             <ul class="nav nav-tabs">
-                <li class="active">
+                <li class="nav_tab  active">
                     <a href="#">风格管理</a>
                 </li>
-                <li>
+                <li class="nav_tab ">
                     <a href="#">房间管理</a>
                 </li>
-                <li class="disabled">
+                <li class="nav_tab">
                     <a href="#">餐饮/娱乐</a>
                 </li>
             </ul>
+            <br>
             <div class="StyleInfor">
                 <form class="form-horizontal">
                     <div class="control-group">
-                        <label class="control-label" for="inputStyleID">房间编号</label>
+                        <label class="control-label" for="inputStyleID">类型编号</label>
                         <div class="controls">
                             <input id="inputStyleID" type="text" />
                         </div>
