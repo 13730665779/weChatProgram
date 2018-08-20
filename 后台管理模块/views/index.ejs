@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <title>自然风光主题酒店</title>
+    <style>
+    .header{
+        width: 100%;
+        display: inline-block;
+        margin: 10px auto;
+        height: 50px;
+        background-color: #bce8f1;
+        line-height: 50px;
+    }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h3 class="text-center header" >
+        自然风光酒店
+    </h3>
+    <div class="row-fluid">
+        <div class="span12">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#">风格管理</a>
+                </li>
+                <li>
+                    <a href="#">房间管理</a>
+                </li>
+                <li class="disabled">
+                    <a href="#">餐饮/娱乐</a>
+                </li>
+            </ul>
+            <div class="StyleInfor">
+                <form class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label" for="inputStyleID">房间编号</label>
+                        <div class="controls">
+                            <input id="inputStyleID" type="text" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputStyle">风格名称</label>
+                        <div class="controls">
+                            <input id="inputStyle" type="text" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="describe">描述</label>
+                        <div class="controls">
+                            <textarea  id="describe" name="message" placeholder="describe"></textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="imageStyle">图片</label>
+                        <div class="controls">
+                            <input id="imageStyle" type="file" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls" style="margin-top: 10px">
+                            <button type="submit" class="btn">保存</button> <button type="submit" class="btn">修改</button> <button type="submit" class="btn">删除</button>
+                        </div>
+                    </div>
+                </form>
+                <br>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>
+                            类型编号
+                        </th>
+                        <th>
+                            风格名称
+                        </th>
+                        <th>
+                            描述
+                        </th>
+                        <th>
+                            图片
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            01/04/2012
+                        </td>
+                        <td>
+                            Default
+                        </td>
+                    </tr>
+                    <tr class="success">
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            01/04/2012
+                        </td>
+                        <td>
+                            Approved
+                        </td>
+                    </tr>
+                    <tr class="error">
+                        <td>
+                            2
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            02/04/2012
+                        </td>
+                        <td>
+                            Declined
+                        </td>
+                    </tr>
+                    <tr class="warning">
+                        <td>
+                            3
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            03/04/2012
+                        </td>
+                        <td>
+                            Pending
+                        </td>
+                    </tr>
+                    <tr class="info">
+                        <td>
+                            4
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            04/04/2012
+                        </td>
+                        <td>
+                            Call in to confirm
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
