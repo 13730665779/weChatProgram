@@ -92,12 +92,12 @@
             <!--风格管理-->
             <div class="StyleInfor">
                 <form class="form-horizontal">
-                    <div class="control-group">
-                        <label class="control-label" for="inputThemeNo">类型编号</label>
-                        <div class="controls">
-                            <input id="inputThemeNo" type="text" name="inputThemeName"/>
-                        </div>
-                    </div>
+                    <!--<div class="control-group">-->
+                        <!--<label class="control-label" for="inputThemeNo">类型编号</label>-->
+                        <!--<div class="controls">-->
+                            <!--<input id="inputThemeNo" type="text" name="inputThemeName"/>-->
+                        <!--</div>-->
+                    <!--</div>-->
                     <div class="control-group">
                         <label class="control-label" for="inputThemeName">风格名称</label>
                         <div class="controls">
@@ -127,7 +127,7 @@
                     <thead>
                     <tr>
                         <th>
-                            类型编号
+                            类型序号
                         </th>
                         <th>
                             风格名称
@@ -373,6 +373,12 @@
                         </div>
                     </div>
                     <div class="control-group">
+                        <label class="control-label" for="inputFoodImgKey">菜品图片</label>
+                        <div class="controls">
+                            <input id="inputFoodImgKey" type="file" name="foodImgKey"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
                         <div class="controls" style="margin-top: 10px">
                             <button type="submit" class="btn">保存</button> <button type="submit" class="btn">修改</button> <button type="submit" class="btn">删除</button>
                         </div>
@@ -397,6 +403,9 @@
                         <th>
                             菜品描述
                         </th>
+                        <th>
+                            菜品图片
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -412,6 +421,9 @@
                         </td>
                         <td>
                             Default
+                        </td>
+                        <td>
+                            1
                         </td>
                         <td>
                             1
@@ -433,6 +445,9 @@
                         <td>
                             1
                         </td>
+                        <td>
+                            1
+                        </td>
                     </tr>
                     <tr class="error">
                         <td>
@@ -446,6 +461,9 @@
                         </td>
                         <td>
                             Declined
+                        </td>
+                        <td>
+                            1
                         </td>
                         <td>
                             1
@@ -467,6 +485,9 @@
                         <td>
                             1
                         </td>
+                        <td>
+                            1
+                        </td>
                     </tr>
                     <tr class="info">
                         <td>
@@ -480,6 +501,9 @@
                         </td>
                         <td>
                             Call in to confirm
+                        </td>
+                        <td>
+                            1
                         </td>
                         <td>
                             1
@@ -642,6 +666,10 @@
     </div>
 
 </div>
-
 </body>
+<script language="JavaScript">
+    var InputThemeName=document.getElementsByName('');
+
+</script>
+
 </html>

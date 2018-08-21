@@ -8,7 +8,7 @@ function RoomThemeUtil() {
             user: 'root',            //MySQL认证用户名
             password: 'wtt19950820/',                //MySQL认证用户密码
             port: '3306',                 //端口号
-            database: 'Hstel_DB'          //数据库里面的数据
+            database: 'Hostel_DB'          //数据库里面的数据
         });
 
         //2,连接
@@ -16,10 +16,10 @@ function RoomThemeUtil() {
     }
 
     //插入数据
-    this.insertTheme = function (themeName,themeInfo,imgKey) {
+    this.insertTheme = function (themeName,themeInfor,imgKey) {
         //1,编写sql语句
-        var themeAddSql = 'INSERT INTO Theme_TB(id,themeName,themeInfo,imgKey) VALUES(null,?,?,?)';
-        var themeAddSql_Params = [themeName,themeInfo,imgKey];
+        var themeAddSql = 'insert INTO Theme_TB(id,themeName,themeInfor,imgKey) VALUES(null,?,?,?)';
+        var themeAddSql_Params = [themeName,themeInfor,imgKey];
         //2,进行插入操作
         /**
          *query，mysql语句执行的方法
@@ -76,6 +76,7 @@ function RoomThemeUtil() {
     }
 }
 var style = new RoomThemeUtil();
-style.insertTheme("自然风光","1","2","3");
-
+style.init();
+style.insertTheme("自然风光","1","2");
+// insert INTO Theme_TB(id,themeName,themeInfor,imgKey) VALUES("自然风光","1","2");
 module.exports = RoomThemeUtil;
