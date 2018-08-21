@@ -1,4 +1,4 @@
-function RoomDetailUtil() {
+function RoomUtil() {
     var connection;
     this.init = function () {
         var mysql = require('mysql');  //调用MySQL模块
@@ -8,7 +8,7 @@ function RoomDetailUtil() {
             user: 'root',            //MySQL认证用户名
             password: 'root',                //MySQL认证用户密码
             port: '3306',                 //端口号
-            database: 'hotel'          //数据库里面的数据
+            database: 'hostel_db'          //数据库里面的数据
         });
 
         //2,连接
@@ -16,10 +16,10 @@ function RoomDetailUtil() {
     }
 
     //插入数据
-    this.inserDetail = function (theme,number_of_people,number_of_room,price) {
+    this.inserRoom = function (roomNO,themeId,accommodate,roomPrice) {
         //1,编写sql语句
-        var DetailAddSql = 'INSERT INTO room_details_table(theme,number_of_people,number_of_room,price) VALUES(?,?,?,?)';
-        var DetailAddSql_Params = [theme,number_of_people,number_of_room,price];
+        var DetailAddSql = 'INSERT INTO room_tb(roomNO,themeId,accommodate,roomPrice) VALUES(?,?,?,?)';
+        var DetailAddSql_Params = [roomNO,themeId,accommodate,roomPrice];
         //2,进行插入操作
         /**
          *query，mysql语句执行的方法
@@ -39,7 +39,7 @@ function RoomDetailUtil() {
     //查询全部
     this.queryAll = function (call) {
 
-        var sql = "select* from room_details_table";
+        var sql = "select* from room_tb";
         connection.query(sql, function (err, result) {
             if (err) {
                 console.log('[INSERT ERROR] - ', err.message);
@@ -52,7 +52,7 @@ function RoomDetailUtil() {
     }
     //更新主题名称
     this.updateTheme = function (value,id) {
-        var sql = "update room_details_table set number_of_people = ? where id = ?";
+        var sql = "update room_tb set themeId = ? where id = ?";
         var Params = [value,id];
         connection.query(sql, Params, function (err, result) {
             if (err) {
@@ -63,20 +63,8 @@ function RoomDetailUtil() {
         connection.end();
     }
     //更新可住人数
-    this.updateNumberOfPeople = function (value,id) {
-        var sql = "update room_details_table set theme = ? where id = ?";
-        var Params = [value,id];
-        connection.query(sql, Params, function (err, result) {
-            if (err) {
-                console.log('[INSERT ERROR] - ', err.message);
-                return;
-            }
-        });
-        connection.end();
-    }
-    //更新房间总数
-    this.updateNumberOfRoom = function (value,id) {
-        var sql = "update room_details_table set number_of_room = ? where id = ?";
+    this.updateAccommodate = function (value,id) {
+        var sql = "update room_tb set accommodate = ? where id = ?";
         var Params = [value,id];
         connection.query(sql, Params, function (err, result) {
             if (err) {
@@ -87,8 +75,20 @@ function RoomDetailUtil() {
         connection.end();
     }
     //更新价格
-    this.updatePrice = function (value,id) {
-        var sql = "update room_details_table set price = ? where id = ?";
+    this.updateRoomPrice = function (value,id) {
+        var sql = "update room_tb set roomPrice = ? where id = ?";
+        var Params = [value,id];
+        connection.query(sql, Params, function (err, result) {
+            if (err) {
+                console.log('[INSERT ERROR] - ', err.message);
+                return;
+            }
+        });
+        connection.end();
+    }
+    //更新房间编号
+    this.updateRoomNO = function (value,id) {
+        var sql = "update room_tb set roomNO = ? where id = ?";
         var Params = [value,id];
         connection.query(sql, Params, function (err, result) {
             if (err) {
@@ -100,4 +100,4 @@ function RoomDetailUtil() {
     }
 }
 
-module.exports = RoomDetailUtil;
+module.exports = RoomUtil;

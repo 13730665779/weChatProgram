@@ -8,7 +8,7 @@ function EntertainmentUtil() {
             user: 'root',            //MySQL认证用户名
             password: 'root',                //MySQL认证用户密码
             port: '3306',                 //端口号
-            database: 'hotel'          //数据库里面的数据
+            database: 'hostel_db'          //数据库里面的数据
         });
 
         //2,连接
@@ -16,10 +16,10 @@ function EntertainmentUtil() {
     }
 
     //插入数据
-    this.inserEntertainment = function (name,introduction) {
+    this.inserEntertainment = function (enterName,enterPlace,enterInfor,imgKey) {
         //1,编写sql语句
-        var EntertainmentAddSql = 'INSERT INTO entertainment_table(name,introduction) VALUES(?,?)';
-        var EntertainmentAddSql_Params = [name,introduction];
+        var EntertainmentAddSql = 'INSERT INTO entertainment_tb(enterName,enterPlace,enterInfor,imgKey) VALUES(?,?,?,?)';
+        var EntertainmentAddSql_Params = [enterName,enterPlace,enterInfor,imgKey];
         //2,进行插入操作
         /**
          *query，mysql语句执行的方法
@@ -39,7 +39,7 @@ function EntertainmentUtil() {
     //查询全部
     this.queryAll = function (call) {
 
-        var sql = "select* from entertainment_table";
+        var sql = "select* from entertainment_tb";
         connection.query(sql, function (err, result) {
             if (err) {
                 console.log('[INSERT ERROR] - ', err.message);
@@ -51,8 +51,8 @@ function EntertainmentUtil() {
         connection.end();
     }
     //更新娱乐名
-    this.updateName = function (value,id) {
-        var sql = "update entertainment_table set name = ? where id = ?";
+    this.updateEnterName = function (value,id) {
+        var sql = "update entertainment_tb set enterName = ? where id = ?";
         var Params = [value,id];
         connection.query(sql, Params, function (err, result) {
             if (err) {
@@ -63,8 +63,32 @@ function EntertainmentUtil() {
         connection.end();
     }
     //更新简介
-    this.updateIntroduction = function (value,id) {
-        var sql = "update room_details_table set introduction = ? where id = ?";
+    this.updateEnterInfor = function (value,id) {
+        var sql = "update entertainment_tb set enterInfor = ? where id = ?";
+        var Params = [value,id];
+        connection.query(sql, Params, function (err, result) {
+            if (err) {
+                console.log('[INSERT ERROR] - ', err.message);
+                return;
+            }
+        });
+        connection.end();
+    }
+    //更新地点
+    this.updateEnterPlace = function (value,id) {
+        var sql = "update entertainment_tb set enterPlace = ? where id = ?";
+        var Params = [value,id];
+        connection.query(sql, Params, function (err, result) {
+            if (err) {
+                console.log('[INSERT ERROR] - ', err.message);
+                return;
+            }
+        });
+        connection.end();
+    }
+    //更新图片信息
+    this.updateImgKey = function (value,id) {
+        var sql = "update entertainment_tb set imgKey = ? where id = ?";
         var Params = [value,id];
         connection.query(sql, Params, function (err, result) {
             if (err) {

@@ -1,4 +1,4 @@
-function MenuUtil() {
+function FoodUtil() {
     var connection;
     this.init = function () {
         var mysql = require('mysql');  //调用MySQL模块
@@ -8,7 +8,7 @@ function MenuUtil() {
             user: 'root',            //MySQL认证用户名
             password: 'root',                //MySQL认证用户密码
             port: '3306',                 //端口号
-            database: 'hotel'          //数据库里面的数据
+            database: 'hostel_db'          //数据库里面的数据
         });
 
         //2,连接
@@ -16,10 +16,10 @@ function MenuUtil() {
     }
 
     //插入数据
-    this.inserMenu = function (dish_name,price,introduction,type) {
+    this.inserFood = function (foodName,foodType,foodPrice,foodInfor,imgKey) {
         //1,编写sql语句
-        var MenuAddSql = 'INSERT INTO menu_table(dish_name,price,introduction,type) VALUES(?,?,?,?)';
-        var MenuAddSql_Params = [dish_name,price,introduction,type];
+        var MenuAddSql = 'INSERT INTO food_tb(foodName,foodType,foodPrice,foodInfor,imgKey) VALUES(?,?,?,?,?)';
+        var MenuAddSql_Params = [foodName,foodType,foodPrice,foodInfor,imgKey];
         //2,进行插入操作
         /**
          *query，mysql语句执行的方法
@@ -39,7 +39,7 @@ function MenuUtil() {
     //查询全部
     this.queryAll = function (call) {
 
-        var sql = "select* from menu_table";
+        var sql = "select* from food_tb";
         connection.query(sql, function (err, result) {
             if (err) {
                 console.log('[INSERT ERROR] - ', err.message);
@@ -51,8 +51,8 @@ function MenuUtil() {
         connection.end();
     }
     //更新菜名
-    this.updateDishName = function (value,id) {
-        var sql = "update room_details_table set dish_name = ? where id = ?";
+    this.updateFoodName = function (value,id) {
+        var sql = "update food_tb set foodName = ? where id = ?";
         var Params = [value,id];
         connection.query(sql, Params, function (err, result) {
             if (err) {
@@ -63,8 +63,8 @@ function MenuUtil() {
         connection.end();
     }
     //更新价格
-    this.updatePrice = function (value,id) {
-        var sql = "update room_details_table set price = ? where id = ?";
+    this.updateFoodPrice = function (value,id) {
+        var sql = "update food_tb set foodPrice = ? where id = ?";
         var Params = [value,id];
         connection.query(sql, Params, function (err, result) {
             if (err) {
@@ -75,8 +75,8 @@ function MenuUtil() {
         connection.end();
     }
     //更新介绍
-    this.updateIntroduction = function (value,id) {
-        var sql = "update room_details_table set introduction = ? where id = ?";
+    this.updateFoodInfor = function (value,id) {
+        var sql = "update food_tb set foodInfor = ? where id = ?";
         var Params = [value,id];
         connection.query(sql, Params, function (err, result) {
             if (err) {
@@ -87,8 +87,32 @@ function MenuUtil() {
         connection.end();
     }
     //更新分类
-    this.updateType = function (value,id) {
-        var sql = "update room_details_table set type = ? where id = ?";
+    this.updateFoodType = function (value,id) {
+        var sql = "update food_tb set foodType = ? where id = ?";
+        var Params = [value,id];
+        connection.query(sql, Params, function (err, result) {
+            if (err) {
+                console.log('[INSERT ERROR] - ', err.message);
+                return;
+            }
+        });
+        connection.end();
+    }
+    //更新价格
+    this.updateFoodPrice = function (value,id) {
+        var sql = "update food_tb set foodPrice = ? where id = ?";
+        var Params = [value,id];
+        connection.query(sql, Params, function (err, result) {
+            if (err) {
+                console.log('[INSERT ERROR] - ', err.message);
+                return;
+            }
+        });
+        connection.end();
+    }
+    //更新图片
+    this.updateImgKey = function (value,id) {
+        var sql = "update food_tb set imgKey = ? where id = ?";
         var Params = [value,id];
         connection.query(sql, Params, function (err, result) {
             if (err) {
@@ -100,4 +124,4 @@ function MenuUtil() {
     }
 }
 
-module.exports = MenuUtil;
+module.exports = FoodUtil;
