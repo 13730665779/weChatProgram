@@ -5,6 +5,7 @@
     <script src="js/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
     <title>自然风光主题酒店</title>
     <style>
         .header{
@@ -58,10 +59,59 @@
                     $('.StyleInfor').hide();
                     $('.HomeInfor').hide();
                 }
-
             });
 
         })
+
+        function  saveTheme() {
+            var inputThemeForm = document.getElementById("inputThemeForm");
+            var file = document.getElementById("inputImgKey");
+            var formData = new FormData(inputThemeForm);
+            var fileObj =file.files[0];
+            formData.append("uploadImage", fileObj);
+            var url = "http://localhost:8882/index";
+            // var ThemeHttp=new XMLHttpRequest();
+            // ThemeHttp.open('POST',url,true);
+            // ThemeHttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            // ThemeHttp.send(formData);
+            <!--封装好的Ajax-->
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formData,
+
+                /**
+                 * 必须false才会避开jQuery对 formdata 的默认处理
+                 * XMLHttpRequest会对 formdata 进行正确的处理
+                 */
+                processData: false,
+                /**
+                 *必须false才会自动加上正确的Content-Type
+                 */
+                contentType: false,
+                success: function (responseStr) {
+                    alert(responseStr.newPath);
+
+                },
+                error: function (responseStr) {
+                    alert(responseStr.newPath);
+                }
+            });
+
+
+
+            // ThemeHttp.onreadystatechange=function () {
+            //     if (ThemeHttp.readyState==4 && ThemeHttp.status==200){
+            //         console.log(ThemeHttp);
+            //         // var result =JSON.parse(ThemeHttp.responseText);
+            //         // // console.log(result);
+            //         // if(result.ok==1){
+            //         //     window.location.href='http://localhost:8882/index';
+            //         // }
+            //     }
+        //   }
+        }
+
     </script>
 </head>
 <body>
@@ -91,7 +141,7 @@
             <br>
             <!--风格管理-->
             <div class="StyleInfor">
-                <form class="form-horizontal">
+                <form id="inputThemeForm" class="form-horizontal" action="/index" >
                     <!--<div class="control-group">-->
                         <!--<label class="control-label" for="inputThemeNo">类型编号</label>-->
                         <!--<div class="controls">-->
@@ -101,7 +151,7 @@
                     <div class="control-group">
                         <label class="control-label" for="inputThemeName">风格名称</label>
                         <div class="controls">
-                            <input id="inputThemeName" type="text" />
+                            <input id="inputThemeName" type="text" name="themeName" />
                         </div>
                     </div>
                     <div class="control-group">
@@ -113,15 +163,15 @@
                     <div class="control-group">
                         <label class="control-label" for="inputImgKey">图片</label>
                         <div class="controls">
-                            <input id="inputImgKey" type="file" name="imgKey"/>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <div class="controls" style="margin-top: 10px">
-                            <button type="submit" class="btn">保存</button> <button type="submit" class="btn">修改</button> <button type="submit" class="btn">删除</button>
+                            <input id="inputImgKey" type="file" name="imgKey" />
                         </div>
                     </div>
                 </form>
+                <div class="control-group">
+                    <div class="controls" style="margin-top: 10px">
+                        <button  class="btn" onclick="saveTheme()">保存</button> <button class="btn" onclick="updataTheme()">修改</button> <button type="submit" class="btn" onclick="deleteTheme()">删除</button>
+                    </div>
+                </div>
                 <br>
                 <table class="table">
                     <thead>
@@ -241,12 +291,12 @@
                             <input id="inputRoomPrice" type="text"  name="roomPrice"/>
                         </div>
                     </div>
-                    <div class="control-group">
-                        <div class="controls" style="margin-top: 10px">
-                            <button type="submit" class="btn">保存</button> <button type="submit" class="btn">修改</button> <button type="submit" class="btn">删除</button>
-                        </div>
-                    </div>
                 </form>
+                <div class="control-group">
+                    <div class="controls" style="margin-top: 10px">
+                        <button type="submit" class="btn">保存</button> <button type="submit" class="btn">修改</button> <button type="submit" class="btn">删除</button>
+                    </div>
+                </div>
                 <br>
                 <table class="table">
                     <thead>
@@ -378,12 +428,12 @@
                             <input id="inputFoodImgKey" type="file" name="foodImgKey"/>
                         </div>
                     </div>
-                    <div class="control-group">
-                        <div class="controls" style="margin-top: 10px">
-                            <button type="submit" class="btn">保存</button> <button type="submit" class="btn">修改</button> <button type="submit" class="btn">删除</button>
-                        </div>
-                    </div>
                 </form>
+                <div class="control-group">
+                    <div class="controls" style="margin-top: 10px">
+                        <button type="submit" class="btn" onclick="saveFood()">保存</button> <button class="btn" onclick="updataFood()">修改</button> <button class="btn" onclick="daleteFood()">删除</button>
+                    </div>
+                </div>
                 <br>
                 <table class="table">
                     <thead>
@@ -667,9 +717,6 @@
 
 </div>
 </body>
-<script language="JavaScript">
-    var InputThemeName=document.getElementsByName('');
 
-</script>
 
 </html>
