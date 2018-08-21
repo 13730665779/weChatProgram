@@ -7,14 +7,18 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <title>自然风光主题酒店</title>
     <style>
-    .header{
-        width: 100%;
-        display: inline-block;
-        margin: 10px auto;
-        height: 50px;
-        background-color: #bce8f1;
-        line-height: 50px;
-    }
+        .header{
+           width: 100%;
+           display: inline-block;
+           margin: 10px auto;
+           height: 50px;
+           background-color: #bce8f1;
+           line-height: 50px;
+        }
+
+        .HomeInfor{
+           display: none;
+        }
     </style>
     <script>
         $(function () {
@@ -23,7 +27,19 @@
                     $(this).addClass('active');
                     $(this).siblings().removeClass('active');
                 }
+                if($(this).hasClass('nav_tab01')){
+                    $('.StyleInfor').show();
+                    $('.HomeInfor').hide();
+                }
+                else if($(this).hasClass('nav_tab02')){
+                    $('.HomeInfor').show();
+                    $('.StyleInfor').hide();
+                }
+                else{
+
+                }
             });
+
         })
     </script>
 </head>
@@ -35,17 +51,18 @@
     <div class="row-fluid">
         <div class="span12">
             <ul class="nav nav-tabs">
-                <li class="nav_tab  active">
+                <li class="nav_tab  nav_tab01 active">
                     <a href="#">风格管理</a>
                 </li>
-                <li class="nav_tab ">
+                <li class="nav_tab  nav_tab02">
                     <a href="#">房间管理</a>
                 </li>
-                <li class="nav_tab">
+                <li class="nav_tab nav_tab03">
                     <a href="#">餐饮/娱乐</a>
                 </li>
             </ul>
             <br>
+            <!--风格管理-->
             <div class="StyleInfor">
                 <form class="form-horizontal">
                     <div class="control-group">
@@ -170,7 +187,131 @@
                     </tbody>
                 </table>
             </div>
-
+            <!--房间管理-->
+            <div class="HomeInfor">
+                <form class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label" for="inputStyleID">房间编号</label>
+                        <div class="controls">
+                            <input id="inputStyleID" type="text" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputStyle">房间风格</label>
+                        <div class="controls">
+                            <input id="inputStyle" type="text" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="describe">容纳人数</label>
+                        <div class="controls">
+                            <textarea  id="describe" name="message" placeholder="describe"></textarea>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="imageStyle">图片</label>
+                        <div class="controls">
+                            <input id="imageStyle" type="file" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls" style="margin-top: 10px">
+                            <button type="submit" class="btn">保存</button> <button type="submit" class="btn">修改</button> <button type="submit" class="btn">删除</button>
+                        </div>
+                    </div>
+                </form>
+                <br>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>
+                            房间编号
+                        </th>
+                        <th>
+                            房间风格
+                        </th>
+                        <th>
+                            容纳人数
+                        </th>
+                        <th>
+                            图片
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            01/04/2012
+                        </td>
+                        <td>
+                            Default
+                        </td>
+                    </tr>
+                    <tr class="success">
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            01/04/2012
+                        </td>
+                        <td>
+                            Approved
+                        </td>
+                    </tr>
+                    <tr class="error">
+                        <td>
+                            2
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            02/04/2012
+                        </td>
+                        <td>
+                            Declined
+                        </td>
+                    </tr>
+                    <tr class="warning">
+                        <td>
+                            3
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            03/04/2012
+                        </td>
+                        <td>
+                            Pending
+                        </td>
+                    </tr>
+                    <tr class="info">
+                        <td>
+                            4
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            04/04/2012
+                        </td>
+                        <td>
+                            Call in to confirm
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     </div>
