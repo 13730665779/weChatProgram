@@ -1,4 +1,4 @@
-function MenuUtil() {
+function RoomUtil() {
     var connection;
     this.init = function () {
         var mysql = require('mysql');  //调用MySQL模块
@@ -8,7 +8,7 @@ function MenuUtil() {
             user: 'root',            //MySQL认证用户名
             password: 'root',                //MySQL认证用户密码
             port: '3306',                 //端口号
-            database: 'hotel'          //数据库里面的数据
+            database: 'hostel_db'          //数据库里面的数据
         });
 
         //2,连接
@@ -16,10 +16,10 @@ function MenuUtil() {
     }
 
     //插入数据
-    this.inserMenu = function (dish_name,price,introduction,type) {
+    this.inserRoom = function (roomNO,themeId,accommodate,roomPrice) {
         //1,编写sql语句
-        var MenuAddSql = 'INSERT INTO menu_table(dish_name,price,introduction,type) VALUES(?,?,?,?)';
-        var MenuAddSql_Params = [dish_name,price,introduction,type];
+        var DetailAddSql = 'INSERT INTO room_tb(roomNO,themeId,accommodate,roomPrice) VALUES(?,?,?,?)';
+        var DetailAddSql_Params = [roomNO,themeId,accommodate,roomPrice];
         //2,进行插入操作
         /**
          *query，mysql语句执行的方法
@@ -27,7 +27,7 @@ function MenuUtil() {
          * 2，userAddSql_Params，sql语句中的值
          * 3，function (err, result)，回调函数，err当执行错误时，回传一个err值，当执行成功时，传回result
          */
-        connection.query(MenuAddSql, MenuAddSql_Params, function (err, result) {
+        connection.query(DetailAddSql, DetailAddSql_Params, function (err, result) {
             if (err) {
                 console.log('[INSERT ERROR] - ', err.message);
                 return;
@@ -39,7 +39,7 @@ function MenuUtil() {
     //查询全部
     this.queryAll = function (call) {
 
-        var sql = "select* from menu_table";
+        var sql = "select* from room_tb";
         connection.query(sql, function (err, result) {
             if (err) {
                 console.log('[INSERT ERROR] - ', err.message);
@@ -50,9 +50,21 @@ function MenuUtil() {
         //5,连接结束
         connection.end();
     }
-    //更新菜名
-    this.updateDishName = function (value,id) {
-        var sql = "update room_details_table set dish_name = ? where id = ?";
+    //更新主题名称
+    this.updateTheme = function (value,id) {
+        var sql = "update room_tb set themeId = ? where id = ?";
+        var Params = [value,id];
+        connection.query(sql, Params, function (err, result) {
+            if (err) {
+                console.log('[INSERT ERROR] - ', err.message);
+                return;
+            }
+        });
+        connection.end();
+    }
+    //更新可住人数
+    this.updateAccommodate = function (value,id) {
+        var sql = "update room_tb set accommodate = ? where id = ?";
         var Params = [value,id];
         connection.query(sql, Params, function (err, result) {
             if (err) {
@@ -63,8 +75,8 @@ function MenuUtil() {
         connection.end();
     }
     //更新价格
-    this.updatePrice = function (value,id) {
-        var sql = "update room_details_table set price = ? where id = ?";
+    this.updateRoomPrice = function (value,id) {
+        var sql = "update room_tb set roomPrice = ? where id = ?";
         var Params = [value,id];
         connection.query(sql, Params, function (err, result) {
             if (err) {
@@ -74,21 +86,9 @@ function MenuUtil() {
         });
         connection.end();
     }
-    //更新介绍
-    this.updateIntroduction = function (value,id) {
-        var sql = "update room_details_table set introduction = ? where id = ?";
-        var Params = [value,id];
-        connection.query(sql, Params, function (err, result) {
-            if (err) {
-                console.log('[INSERT ERROR] - ', err.message);
-                return;
-            }
-        });
-        connection.end();
-    }
-    //更新分类
-    this.updateType = function (value,id) {
-        var sql = "update room_details_table set type = ? where id = ?";
+    //更新房间编号
+    this.updateRoomNO = function (value,id) {
+        var sql = "update room_tb set roomNO = ? where id = ?";
         var Params = [value,id];
         connection.query(sql, Params, function (err, result) {
             if (err) {
@@ -100,4 +100,4 @@ function MenuUtil() {
     }
 }
 
-module.exports = MenuUtil;
+module.exports = RoomUtil;

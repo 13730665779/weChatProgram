@@ -1,4 +1,4 @@
-function EntertainmentUtil() {
+function FoodUtil() {
     var connection;
     this.init = function () {
         var mysql = require('mysql');  //调用MySQL模块
@@ -16,10 +16,10 @@ function EntertainmentUtil() {
     }
 
     //插入数据
-    this.inserEntertainment = function (enterName,enterPlace,enterInfor,imgKey) {
+    this.inserFood = function (foodName,foodType,foodPrice,foodInfor,imgKey) {
         //1,编写sql语句
-        var EntertainmentAddSql = 'INSERT INTO entertainment_tb(enterName,enterPlace,enterInfor,imgKey) VALUES(?,?,?,?)';
-        var EntertainmentAddSql_Params = [enterName,enterPlace,enterInfor,imgKey];
+        var MenuAddSql = 'INSERT INTO food_tb(foodName,foodType,foodPrice,foodInfor,imgKey) VALUES(?,?,?,?,?)';
+        var MenuAddSql_Params = [foodName,foodType,foodPrice,foodInfor,imgKey];
         //2,进行插入操作
         /**
          *query，mysql语句执行的方法
@@ -27,7 +27,7 @@ function EntertainmentUtil() {
          * 2，userAddSql_Params，sql语句中的值
          * 3，function (err, result)，回调函数，err当执行错误时，回传一个err值，当执行成功时，传回result
          */
-        connection.query(EntertainmentAddSql, EntertainmentAddSql_Params, function (err, result) {
+        connection.query(MenuAddSql, MenuAddSql_Params, function (err, result) {
             if (err) {
                 console.log('[INSERT ERROR] - ', err.message);
                 return;
@@ -39,7 +39,7 @@ function EntertainmentUtil() {
     //查询全部
     this.queryAll = function (call) {
 
-        var sql = "select* from entertainment_tb";
+        var sql = "select* from food_tb";
         connection.query(sql, function (err, result) {
             if (err) {
                 console.log('[INSERT ERROR] - ', err.message);
@@ -50,9 +50,9 @@ function EntertainmentUtil() {
         //5,连接结束
         connection.end();
     }
-    //更新娱乐名
-    this.updateEnterName = function (value,id) {
-        var sql = "update entertainment_tb set enterName = ? where id = ?";
+    //更新菜名
+    this.updateFoodName = function (value,id) {
+        var sql = "update food_tb set foodName = ? where id = ?";
         var Params = [value,id];
         connection.query(sql, Params, function (err, result) {
             if (err) {
@@ -62,9 +62,9 @@ function EntertainmentUtil() {
         });
         connection.end();
     }
-    //更新简介
-    this.updateEnterInfor = function (value,id) {
-        var sql = "update entertainment_tb set enterInfor = ? where id = ?";
+    //更新价格
+    this.updateFoodPrice = function (value,id) {
+        var sql = "update food_tb set foodPrice = ? where id = ?";
         var Params = [value,id];
         connection.query(sql, Params, function (err, result) {
             if (err) {
@@ -74,9 +74,9 @@ function EntertainmentUtil() {
         });
         connection.end();
     }
-    //更新地点
-    this.updateEnterPlace = function (value,id) {
-        var sql = "update entertainment_tb set enterPlace = ? where id = ?";
+    //更新介绍
+    this.updateFoodInfor = function (value,id) {
+        var sql = "update food_tb set foodInfor = ? where id = ?";
         var Params = [value,id];
         connection.query(sql, Params, function (err, result) {
             if (err) {
@@ -86,9 +86,33 @@ function EntertainmentUtil() {
         });
         connection.end();
     }
-    //更新图片信息
+    //更新分类
+    this.updateFoodType = function (value,id) {
+        var sql = "update food_tb set foodType = ? where id = ?";
+        var Params = [value,id];
+        connection.query(sql, Params, function (err, result) {
+            if (err) {
+                console.log('[INSERT ERROR] - ', err.message);
+                return;
+            }
+        });
+        connection.end();
+    }
+    //更新价格
+    this.updateFoodPrice = function (value,id) {
+        var sql = "update food_tb set foodPrice = ? where id = ?";
+        var Params = [value,id];
+        connection.query(sql, Params, function (err, result) {
+            if (err) {
+                console.log('[INSERT ERROR] - ', err.message);
+                return;
+            }
+        });
+        connection.end();
+    }
+    //更新图片
     this.updateImgKey = function (value,id) {
-        var sql = "update entertainment_tb set imgKey = ? where id = ?";
+        var sql = "update food_tb set imgKey = ? where id = ?";
         var Params = [value,id];
         connection.query(sql, Params, function (err, result) {
             if (err) {
@@ -100,4 +124,4 @@ function EntertainmentUtil() {
     }
 }
 
-module.exports = EntertainmentUtil;
+module.exports = FoodUtil;
