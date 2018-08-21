@@ -75,9 +75,9 @@ function ThemeUtil() {
         connection.end();
     }
     //更新图片
-    this.updateImgKey = function (value,id) {
+    this.updateImgKey = function (value,keyid) {
         var sql = "update theme_tb set imgKey = ? where id = ?";
-        var Params = [value,id];
+        var Params = [value,keyid];
         connection.query(sql, Params, function (err, result) {
             if (err) {
                 console.log('[INSERT ERROR] - ', err.message);
