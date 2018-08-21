@@ -8,16 +8,23 @@
     <title>自然风光主题酒店</title>
     <style>
         .header{
-           width: 100%;
-           display: inline-block;
-           margin: 10px auto;
-           height: 50px;
-           background-color: #bce8f1;
-           line-height: 50px;
+            width: 100%;
+            display: inline-block;
+            margin: 10px auto;
+            height: 50px;
+            background-color: #bce8f1;
+            line-height: 50px;
         }
 
         .HomeInfor{
-           display: none;
+            display: none;
+        }
+
+        .foodInfor{
+            display: none;
+        }
+        .EntertainmentInfor{
+            display: none;
         }
     </style>
     <script>
@@ -30,14 +37,28 @@
                 if($(this).hasClass('nav_tab01')){
                     $('.StyleInfor').show();
                     $('.HomeInfor').hide();
+                    $('.foodInfor').hide();
+                    $('.EntertainmentInfor').hide();
                 }
                 else if($(this).hasClass('nav_tab02')){
                     $('.HomeInfor').show();
                     $('.StyleInfor').hide();
+                    $('.foodInfor').hide();
+                    $('.EntertainmentInfor').hide();
                 }
-                else{
+                else if($(this).hasClass('nav_tab03')){
+                    $('.foodInfor').show();
+                    $('.StyleInfor').hide();
+                    $('.HomeInfor').hide();
+                    $('.EntertainmentInfor').hide();
+                }
+                else if($(this).hasClass('nav_tab04')){
+                    $('.EntertainmentInfor').show();
+                    $('.foodInfor').hide();
+                    $('.StyleInfor').hide();
+                    $('.HomeInfor').hide();
+                }
 
-                }
             });
 
         })
@@ -58,7 +79,13 @@
                     <a href="#">房间管理</a>
                 </li>
                 <li class="nav_tab nav_tab03">
-                    <a href="#">餐饮/娱乐</a>
+                    <a href="#">餐饮</a>
+                </li>
+                <li class="nav_tab nav_tab04">
+                    <a href="#">娱乐</a>
+                </li>
+                <li class="nav_tab nav_tab05">
+                    <a href="#">其他</a>
                 </li>
             </ul>
             <br>
@@ -66,27 +93,27 @@
             <div class="StyleInfor">
                 <form class="form-horizontal">
                     <div class="control-group">
-                        <label class="control-label" for="inputStyleID">类型编号</label>
+                        <label class="control-label" for="inputThemeNo">类型编号</label>
                         <div class="controls">
-                            <input id="inputStyleID" type="text" />
+                            <input id="inputThemeNo" type="text" name="inputThemeName"/>
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="inputStyle">风格名称</label>
+                        <label class="control-label" for="inputThemeName">风格名称</label>
                         <div class="controls">
-                            <input id="inputStyle" type="text" />
+                            <input id="inputThemeName" type="text" />
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="describe">描述</label>
+                        <label class="control-label" for="inputThemeInfor">描述</label>
                         <div class="controls">
-                            <textarea  id="describe" name="message" placeholder="describe"></textarea>
+                            <textarea  id="inputThemeInfor" name="themeInfor" placeholder="describe"></textarea>
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="imageStyle">图片</label>
+                        <label class="control-label" for="inputImgKey">图片</label>
                         <div class="controls">
-                            <input id="imageStyle" type="file" />
+                            <input id="inputImgKey" type="file" name="imgKey"/>
                         </div>
                     </div>
                     <div class="control-group">
@@ -191,27 +218,27 @@
             <div class="HomeInfor">
                 <form class="form-horizontal">
                     <div class="control-group">
-                        <label class="control-label" for="inputStyleID">房间编号</label>
+                        <label class="control-label" for="inputRoomNo">房间编号</label>
                         <div class="controls">
-                            <input id="inputStyleID" type="text" />
+                            <input id="inputRoomNo" type="text" name="roomNo" />
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="inputStyle">房间风格</label>
+                        <label class="control-label" for="inputThemeName">房间风格</label>
                         <div class="controls">
-                            <input id="inputStyle" type="text" />
+                            <input id="inputThemeName" type="text" name="themeName" />
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="describe">容纳人数</label>
+                        <label class="control-label" for="inputAccomodate">容纳人数</label>
                         <div class="controls">
-                            <textarea  id="describe" name="message" placeholder="describe"></textarea>
+                            <input  id="inputAccomodate" type="number" name="accomodate"/>
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="imageStyle">图片</label>
+                        <label class="control-label" for="inputRoomPrice">房间价格</label>
                         <div class="controls">
-                            <input id="imageStyle" type="file" />
+                            <input id="inputRoomPrice" type="text"  name="roomPrice"/>
                         </div>
                     </div>
                     <div class="control-group">
@@ -234,7 +261,7 @@
                             容纳人数
                         </th>
                         <th>
-                            图片
+                            价格
                         </th>
                     </tr>
                     </thead>
@@ -307,6 +334,304 @@
                         </td>
                         <td>
                             Call in to confirm
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--餐饮-->
+            <div class="foodInfor">
+                <form class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label" for="inputFoodNo">菜品序号</label>
+                        <div class="controls">
+                            <input id="inputFoodNo" type="text" name="foodNo"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputFoodName">菜品名称</label>
+                        <div class="controls">
+                            <input id="inputFoodName" type="text" name="foodName"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputFoodType">菜品种类</label>
+                        <div class="controls">
+                            <input  id="inputFoodType" type="text" name="foodType"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputFoodPrice">菜品价格</label>
+                        <div class="controls">
+                            <input id="inputFoodPrice" type="text" name="foodPrice"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputFoodInfo">菜品描述</label>
+                        <div class="controls">
+                            <input id="inputFoodInfo" type="text" name="foodInfo"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls" style="margin-top: 10px">
+                            <button type="submit" class="btn">保存</button> <button type="submit" class="btn">修改</button> <button type="submit" class="btn">删除</button>
+                        </div>
+                    </div>
+                </form>
+                <br>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>
+                            菜品序号
+                        </th>
+                        <th>
+                            菜品名称
+                        </th>
+                        <th>
+                            菜品种类
+                        </th>
+                        <th>
+                            菜品价格
+                        </th>
+                        <th>
+                            菜品描述
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            01/04/2012
+                        </td>
+                        <td>
+                            Default
+                        </td>
+                        <td>
+                            1
+                        </td>
+                    </tr>
+                    <tr class="success">
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            01/04/2012
+                        </td>
+                        <td>
+                            Approved
+                        </td>
+                        <td>
+                            1
+                        </td>
+                    </tr>
+                    <tr class="error">
+                        <td>
+                            2
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            02/04/2012
+                        </td>
+                        <td>
+                            Declined
+                        </td>
+                        <td>
+                            1
+                        </td>
+                    </tr>
+                    <tr class="warning">
+                        <td>
+                            3
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            03/04/2012
+                        </td>
+                        <td>
+                            Pending
+                        </td>
+                        <td>
+                            1
+                        </td>
+                    </tr>
+                    <tr class="info">
+                        <td>
+                            4
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            04/04/2012
+                        </td>
+                        <td>
+                            Call in to confirm
+                        </td>
+                        <td>
+                            1
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--娱乐-->
+            <div class="EntertainmentInfor">
+                <form class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label" for="inputEnterNo">娱乐设施序号</label>
+                        <div class="controls">
+                            <input id="inputEnterNo" type="text" name="EnterNo"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputEnterName">娱乐设施名称</label>
+                        <div class="controls">
+                            <input id="inputEnterName" type="text" name="enterName"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputEnterPlace">娱乐地点</label>
+                        <div class="controls">
+                            <input  id="inputEnterPlace" type="text" name="enterPlace"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputEnterInfor">描述</label>
+                        <div class="controls">
+                            <input id="inputEnterInfor" type="text" name="enterInfor" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputImgKey">图片</label>
+                        <div class="controls">
+                            <input id="inputImgKey" type="text" name="enterInfor" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls" style="margin-top: 10px">
+                            <button type="submit" class="btn">保存</button> <button type="submit" class="btn">修改</button> <button type="submit" class="btn">删除</button>
+                        </div>
+                    </div>
+                </form>
+                <br>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>
+                            娱乐设施编号
+                        </th>
+                        <th>
+                            娱乐设施名称
+                        </th>
+                        <th>
+                            娱乐地点
+                        </th>
+                        <th>
+                            描述
+                        </th>
+                        <th>
+                            图片
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            01/04/2012
+                        </td>
+                        <td>
+                            Default
+                        </td>
+                        <td>
+                            Approved
+                        </td>
+                    </tr>
+                    <tr class="success">
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            01/04/2012
+                        </td>
+                        <td>
+                            Approved
+                        </td>
+                        <td>
+                            Approved
+                        </td>
+                    </tr>
+                    <tr class="error">
+                        <td>
+                            2
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            02/04/2012
+                        </td>
+                        <td>
+                            Declined
+                        </td>
+                        <td>
+                            Approved
+                        </td>
+                    </tr>
+                    <tr class="warning">
+                        <td>
+                            3
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            03/04/2012
+                        </td>
+                        <td>
+                            Pending
+                        </td>
+                        <td>
+                            Approved
+                        </td>
+                    </tr>
+                    <tr class="info">
+                        <td>
+                            4
+                        </td>
+                        <td>
+                            TB - Monthly
+                        </td>
+                        <td>
+                            04/04/2012
+                        </td>
+                        <td>
+                            Call in to confirm
+                        </td>
+                        <td>
+                            Approved
                         </td>
                     </tr>
                     </tbody>

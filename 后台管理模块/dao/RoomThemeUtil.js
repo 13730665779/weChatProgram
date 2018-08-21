@@ -1,4 +1,4 @@
-function RoomStyleUtil() {
+function RoomThemeUtil() {
     var connection;
     this.init = function () {
         var mysql = require('mysql');  //调用MySQL模块
@@ -8,7 +8,7 @@ function RoomStyleUtil() {
             user: 'root',            //MySQL认证用户名
             password: 'wtt19950820/',                //MySQL认证用户密码
             port: '3306',                 //端口号
-            database: 'hostel_DB'          //数据库里面的数据
+            database: 'Hstel_DB'          //数据库里面的数据
         });
 
         //2,连接
@@ -16,10 +16,10 @@ function RoomStyleUtil() {
     }
 
     //插入数据
-    this.inserStyle = function (style,describe,image_key) {
+    this.insertTheme = function (themeName,themeInfo,imgKey) {
         //1,编写sql语句
-        var styleAddSql = 'INSERT INTO room_theme_table(id,theme,introduction,image_key) VALUES(null,?,?,?)';
-        var styleAddSql_Params = [style,describe,image_key];
+        var themeAddSql = 'INSERT INTO Theme_TB(id,themeName,themeInfo,imgKey) VALUES(null,?,?,?)';
+        var themeAddSql_Params = [themeName,themeInfo,imgKey];
         //2,进行插入操作
         /**
          *query，mysql语句执行的方法
@@ -27,7 +27,7 @@ function RoomStyleUtil() {
          * 2，userAddSql_Params，sql语句中的值
          * 3，function (err, result)，回调函数，err当执行错误时，回传一个err值，当执行成功时，传回result
          */
-        connection.query(styleAddSql, styleAddSql_Params, function (err, result) {
+        connection.query(themeAddSql,themeAddSql_Params, function (err, result) {
             if (err) {
                 console.log('[INSERT ERROR] - ', err.message);
                 return;
@@ -39,7 +39,7 @@ function RoomStyleUtil() {
     //查询全部
     this.queryAll = function (call) {
 
-        var sql = "select* from style_tb";
+        var sql = "select* from Theme_TB";
         connection.query(sql, function (err, result) {
             if (err) {
                 console.log('[INSERT ERROR] - ', err.message);
@@ -51,8 +51,8 @@ function RoomStyleUtil() {
         connection.end();
     }
     //更新主题名
-    this.updateTheme = function (value,id) {
-        var sql = "update style_tb set styleName = ? where id = ?";
+    this.updateStyle = function (value,id) {
+        var sql = "update Theme_TB set themeName = ? where id = ?";
         var Params = [value,id];
         connection.query(sql, Params, function (err, result) {
             if (err) {
@@ -63,8 +63,8 @@ function RoomStyleUtil() {
         connection.end();
     }
     //更新简介
-    this.updateIntroduction = function (value,id) {
-        var sql = "update room_theme_table set introduction = ? where id = ?";
+    this.updateInfor = function (value,id) {
+        var sql = "update Theme_TB set introduction = ? where id = ?";
         var Params = [value,id];
         connection.query(sql, Params, function (err, result) {
             if (err) {
@@ -75,7 +75,7 @@ function RoomStyleUtil() {
         connection.end();
     }
 }
-var style = new RoomStyleUtil();
-style.inserStyle("自然风光","");
+var style = new RoomThemeUtil();
+style.insertTheme("自然风光","1","2","3");
 
-module.exports = RoomStyleUtil;
+module.exports = RoomThemeUtil;
