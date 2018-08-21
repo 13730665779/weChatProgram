@@ -342,7 +342,7 @@
             </div>
             <!--餐饮-->
             <div class="foodInfor">
-                <form id="inputFood" class="form-horizontal" method="post" >
+                <form id="inputFood" class="form-horizontal" method="post" action="/inserFood">
 
                     <div class="control-group">
                         <label class="control-label" for="inputFoodName">菜品名称</label>
@@ -365,7 +365,7 @@
                     <div class="control-group">
                         <label class="control-label" for="inputFoodInfo">菜品描述</label>
                         <div class="controls">
-                            <input id="inputFoodInfo" type="text" name="foodInfo"/>
+                            <input id="inputFoodInfo" type="text" name="foodInfor"/>
                         </div>
                     </div>
                     <div class="control-group">
@@ -666,34 +666,32 @@
 
 <script language="JavaScript">
     function inputFood() {
-        alert("点击")
-        var file = document.getElementById("inputFoodName");
+        var file = document.getElementById("inputFoodImgKey");
         var inputFood = document.getElementById("inputFood");
         var formData = new FormData(inputFood);
         var fileObj = file.files[0];
-        formData.append("imgKey",fileObj);
+        formData.append("uploadImage", fileObj);
         var url = "http://localhost:8888/inserFood";
-        var xmlhttp;
-        if (window.XMLHttpRequest)
-        {
-            // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
-            xmlhttp=new XMLHttpRequest();
-        }
-        else
-        {
-            // IE6, IE5 浏览器执行代码
-            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange=function()
-        {
-            if (xmlhttp.readyState==4 && xmlhttp.status==200)
-            {
-                // document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            /**
+             * 必须false才会避开jQuery对 formdata 的默认处理
+             * XMLHttpRequest会对 formdata 进行正确的处理
+             */
+            processData: false,
+            /**
+             *必须false才会自动加上正确的Content-Type
+             */
+            contentType: false,
+            success: function (responseStr) {
+                alert(formData);
+            },
+            error: function (responseStr) {
+                alert(responseStr.newPath);
             }
-        }
-        xmlhttp.open("POST",url,true);
-        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        xmlhttp.send(formData);
+        });
     }
 </script>
 </html>
