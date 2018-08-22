@@ -64,7 +64,7 @@ app.post("/foodDelete",urlencode,function (req,res) {
     foodUtil.init();
     foodUtil.delete(id,function () {
         console.log("删除成功！");
-        res.render('index01',{data:true});
+        res.redirect('index01');
     })
 })
 //删除娱乐信息
@@ -74,7 +74,6 @@ app.post("/enterDelete",urlencode,function (req,res) {
     var entertainmentUtil = new EntertainmentUtil();
     entertainmentUtil.init();
     entertainmentUtil.delete(id,function () {
-        console.log("删除成功！");
     })
 })
 //添加食物
