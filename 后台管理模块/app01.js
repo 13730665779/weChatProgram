@@ -64,8 +64,8 @@ app.post("/foodDelete",urlencode,function (req,res) {
     foodUtil.init();
     foodUtil.delete(id,function () {
         console.log("删除成功！");
+        res.render('index01',{data:true});
     })
-    res.location('index01');
 })
 //删除娱乐信息
 app.post("/enterDelete",urlencode,function (req,res) {
@@ -220,6 +220,7 @@ app.post("/updateFood",function (req,res) {
             foodUtil.updateFoodInfor(value,id);
             break;
     }
+    res.redirect('index01');
 })
 //修改娱乐
 app.post("/updateEnter",function (req,res) {
