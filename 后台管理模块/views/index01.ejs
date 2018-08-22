@@ -705,24 +705,7 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>
-                            菜品序号
-                        </th>
-                        <th>
-                            菜品名称
-                        </th>
-                        <th>
-                            菜品种类
-                        </th>
-                        <th>
-                            菜品价格
-                        </th>
-                        <th>
-                            菜品描述
-                        </th>
-                        <th>
-                            菜品图片
-                        </th>
+                        <th>菜品序号</th><th>菜品名称</th><th>菜品种类</th><th>菜品价格</th><th>菜品描述</th><th>菜品图片</th>
                     </tr>
                     </thead>
                     <tbody id="foodTbody">
@@ -949,7 +932,7 @@
         }
         xmlhttp.onreadystatechange = function () {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                // document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+                location.reload();
             }
         }
         var url = "http://localhost:8888/foodDelete";
