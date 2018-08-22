@@ -98,6 +98,18 @@ function EntertainmentUtil() {
         });
         connection.end();
     }
+    //删除娱乐
+    this.delete = function (id,call) {
+        var sql = "delete from entertainment_tb where id = ?";
+        var Param = [id];
+        connection.query(sql,Param,function (err,result) {
+            if(err) {
+                console.log('[DELETE ERROR] - ', err.message);
+                return;
+            }
+        })
+        connection.end();
+    }
 }
 
 module.exports = EntertainmentUtil;
