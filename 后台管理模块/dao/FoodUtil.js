@@ -50,6 +50,18 @@ function FoodUtil() {
         //5,连接结束
         connection.end();
     }
+    //按id查询
+    this.queryAtId = function (id,call) {
+        var sql = "select * from food_tb where id = ?";
+        var Params = [id];
+        connection.query(sql,Params,function (err,result) {
+            if(err) {
+                console.log('QUERY ERROR - ', err.message);
+                return;
+            }
+        })
+        connection.end();
+    }
     //更新菜名
     this.updateFoodName = function (value,id) {
         var sql = "update food_tb set foodName = ? where id = ?";
@@ -120,6 +132,18 @@ function FoodUtil() {
                 return;
             }
         });
+        connection.end();
+    }
+    //删除食物
+    this.delete = function (id,call) {
+        var sql = "delete from food_tb where id = ?";
+        var Param = [id];
+        connection.query(sql,Param,function (err,result) {
+            if(err) {
+                console.log('[DELETE ERROR] - ', err.message);
+                return;
+            }
+        })
         connection.end();
     }
 }
