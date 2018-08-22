@@ -932,7 +932,10 @@
         }
         xmlhttp.onreadystatechange = function () {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                location.reload();
+                // if(xmlhttp.responseText){
+                //     window.location.reload(true);
+                // }
+                alert(xmlhttp.responseText)
             }
         }
         var url = "http://localhost:8888/foodDelete";
