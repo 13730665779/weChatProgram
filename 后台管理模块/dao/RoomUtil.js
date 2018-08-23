@@ -6,7 +6,7 @@ function RoomUtil() {
         connection = mysql.createConnection({
             host: 'localhost',       //主机 ip
             user: 'root',            //MySQL认证用户名
-            password: 'root',                //MySQL认证用户密码
+            password: 'wtt19950820/',                //MySQL认证用户密码
             port: '3306',                 //端口号
             database: 'hostel_db'          //数据库里面的数据
         });
@@ -50,6 +50,35 @@ function RoomUtil() {
         //5,连接结束
         connection.end();
     }
+
+    this.queryRoom = function (roomNO,call) {
+        var sql = "select * from room_tb where roomNO=?";
+        var Params = [roomNO];
+        connection.query(sql,Params, function (err, result) {
+            if (err) {
+                console.log('[INSERT ERROR] - ', err.message);
+                return;
+            }
+            call(result);
+        });
+        //5,连接结束
+        connection.end();
+    }
+
+   // 删除房间
+    this.deleteRoom = function (roomNO) {
+        var sql = "delete from room_tb where roomNO=?";
+        var Params = [roomNO];
+        connection.query(sql,Params, function (err, result) {
+            if (err) {
+                console.log('[INSERT ERROR] - ', err.message);
+                return;
+            }
+        });
+        //5,连接结束
+        connection.end();
+    }
+
     //更新主题名称
     this.updateTheme = function (value,id) {
         var sql = "update room_tb set themeId = ? where id = ?";
@@ -75,7 +104,7 @@ function RoomUtil() {
         connection.end();
     }
     //更新价格
-    this.updateRoomPrice = function (value,id) {
+    this.updateRoomPrice = function ( value ,id ) {
         var sql = "update room_tb set roomPrice = ? where id = ?";
         var Params = [value,id];
         connection.query(sql, Params, function (err, result) {
@@ -98,6 +127,17 @@ function RoomUtil() {
         });
         connection.end();
     }
+
 }
+
+
+var room=new RoomUtil();
+room.init();
+var va="1";
+room.updateTheme();
+
+// room.queryRoom(roomNO,function (result) {
+//     console.log(result);
+// });
 
 module.exports = RoomUtil;
