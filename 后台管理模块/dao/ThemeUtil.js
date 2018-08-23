@@ -6,7 +6,7 @@ function ThemeUtil() {
         connection = mysql.createConnection({
             host: 'localhost',       //主机 ip
             user: 'root',            //MySQL认证用户名
-            password: 'root',                //MySQL认证用户密码
+            password: 'wtt19950820/',                //MySQL认证用户密码
             port: '3306',                 //端口号
             database: 'hostel_db'          //数据库里面的数据
         });
@@ -36,6 +36,21 @@ function ThemeUtil() {
         //5,连接结束
         connection.end();
     }
+   // 删除风格
+    this.deleteTheme = function (themeId) {
+        var sql = "delete from theme_tb where id=?";
+        var Params = [themeId];
+        connection.query(sql,Params, function (err, result) {
+            if (err) {
+                console.log('[INSERT ERROR] - ', err.message);
+                return;
+            }
+        });
+        //5,连接结束
+        connection.end();
+    }
+
+
     //查询全部
     this.queryAll = function (call) {
 
@@ -59,10 +74,25 @@ function ThemeUtil() {
                 console.log('[INSERT ERROR] - ', err.message);
                 return;
             }
+
         });
         connection.end();
     }
     //更新简介
+
+    this.queryThemeID=function(ThemeName,call){
+        var sql = "select id from  theme_tb where ThemeName=?";
+        var Params = [ThemeName];
+        connection.query(sql, Params, function (err, result) {
+            if (err) {
+                console.log('[INSERT ERROR] - ', err.message);
+                return;
+            }
+            call(result);
+        });
+        connection.end();
+    }
+
     this.updateThemeInfor = function (value,id) {
         var sql = "update theme_tb set themeInfor = ? where id = ?";
         var Params = [value,id];
@@ -87,5 +117,18 @@ function ThemeUtil() {
         connection.end();
     }
 }
+// var theme=new ThemeUtil();
+// theme.init();
+// var themeName="1";
+// theme.queryThemeID(themeName,function (result) {
+//     console.log(result[0].id);
+// });
 
+// theme.queryAll(function (item) {
+//     console.log(item);
+// })
+// var themeName="aaa";
+// var themeInfor="bbb";
+// var fileKey="ccc";
+// theme.insertTheme(themeName,themeInfor,fileKey);
 module.exports = ThemeUtil;
