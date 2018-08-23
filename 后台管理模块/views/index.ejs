@@ -16,7 +16,6 @@
             background-color: #bce8f1;
             line-height: 50px;
         }
-
         .HomeInfor{
             display: none;
         }
@@ -27,7 +26,6 @@
         .EntertainmentInfor{
             display: none;
         }
-
         .hostelImg{
             width: 60px;
             height: 60px;
@@ -47,10 +45,12 @@
     </style>
     <script>
         $(function () {
+            <!-- 导航栏 -->
             $(".nav_tab").click(function () {
                 if(!$(this).hasClass('active')){
                     $(this).addClass('active');
                     $(this).siblings().removeClass('active');
+
                 }
                 if($(this).hasClass('nav_tab01')){
                     $('.StyleInfor').show();
@@ -78,6 +78,7 @@
                 }
             });
 
+            <!-- 房间搜索 -->
             $(".search_roombtn").click(function () {
                 var trList = $(".roomTbody").children("tr");
                 var trLength = trList.length;
@@ -95,26 +96,63 @@
                     }
                 }
             });
+            <!-- 餐饮搜索 -->
+            $("#foodSearch").click(function () {
+                var trList = $("#foodTbody").children("tr");
+                var trLength = trList.length;
+                for (var i = 0; i < trLength; i++) {
+                    var tdArr = trList.eq(i).find("td");
+                    var tdFoodName = tdArr.eq(1).text();
+                    var tdfoodType = tdArr.eq(2).text();
+                    var tdfoodPrice = tdArr.eq(3).text();
+                    var tdfoodInfor = tdArr.eq(4).text();
+                    var foodText = $("#foodText").val();
+                    if (tdFoodName.match(foodText) || tdfoodType.match(foodText) || tdfoodPrice.match(foodText) || tdfoodInfor.match(foodText)) {
+                        trList.eq(i).removeClass("hiden");
+                    } else {
+                        trList.eq(i).addClass("hiden");
+                    }
+                }
+            });
+            <!-- 娱乐搜索 -->
+            $("#enterSearch").click(function () {
+                var trList = $("#enterTbody").children("tr");
+                var trLength = trList.length;
+                for (var i = 0; i < trLength; i++) {
+                    var tdArr = trList.eq(i).find("td");
+                    var tdenterName = tdArr.eq(1).text();
+                    var tdenterPlace = tdArr.eq(2).text();
+                    var tdenterInfor = tdArr.eq(3).text();
+                    var enterText = $("#enterText").val();
+                    if (tdenterName.match(enterText) || tdenterPlace.match(enterText) || tdenterInfor.match(enterText)) {
+                        trList.eq(i).removeClass("hiden");
+                    } else {
+                        trList.eq(i).addClass("hiden");
+                    }
+                }
+            });
 
+            <!-- 房间单击事件 -->
             $('.updata_room').click(function () {
                 var id = this.getAttribute('id');
                 $("#"+id).children().removeClass('hiden');
                 $("#"+id).children().focus();
             })
+            <!-- 房间双击事件 -->
             $('.updata_room').dblclick(function () {
                 var tdId = this.getAttribute('id');
                 if(tdId.match("ThemeId")){
-                    tdName = "themeId";
+                    tdRoom = "themeId";
                 }
                 else if(tdId.match("Accommodate")){
-                    tdName = "accommodate";
+                    tdRoom = "accommodate";
                 }
                 if(tdId.match("RoomPrice")){
-                    tdName = "roomPrice";
+                    tdRoom = "roomPrice";
                 }
                 var tr = $("#"+tdId).parent();
                 if($("#"+tdId).children().val().length>0){
-                    var data = "id="+tr.attr('id')+"&name="+tdName+"&value="+$("#"+tdId).children().val();
+                    var data = "id="+tr.attr('id')+"&name="+tdRoom+"&value="+$("#"+tdId).children().val();
                     var ThemeHttp=new XMLHttpRequest();
                     ThemeHttp.open('POST',"http://localhost:8883/updateRoom",true);
                     ThemeHttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
@@ -122,10 +160,79 @@
                 }
                 $("#"+tdId).children().addClass('hiden');
             })
+
+            <!-- 餐饮单击事件 -->
+            $(".foodChange").click(function () {
+               var id = $(this).attr('id');
+                var input = $("#"+id).find("input").eq(0);
+                if(input.hasClass("hiden")){
+                    input.removeClass("hiden");
+                    input.focus();
+                }
+            });
+            <!-- 餐饮双击事件 -->
+            $('.foodChange').dblclick(function () {
+                var tdId = $(this).attr('id');
+                if(tdId.match("foodNameChange")){
+                    tdFood = "foodName";
+                }
+                if(tdId.match("foodTypeChange")){
+                    tdFood = "foodType";
+                }
+                if(tdId.match("foodPriceChange")){
+                    tdFood = "foodPrice";
+                }
+                if(tdId.match("foodInforChange")){
+                    tdFood = "foodInfor";
+                }
+                var tr = $("#"+tdId).parent();
+                if($("#"+tdId).children().val().length>0){
+                    var data = "id="+tr.attr('id')+"&name="+tdFood+"&value="+$("#"+tdId).children().val();
+                    var ThemeHttp=new XMLHttpRequest();
+                    ThemeHttp.open('POST',"http://localhost:8883/updateFood",true);
+                    ThemeHttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                    ThemeHttp.send(data);
+                }
+                $("#"+tdId).children().addClass('hiden');
+            })
+
+            <!-- 娱乐单击事件 -->
+            $(".enterChange").click(function () {
+                var id = $(this).attr('id');
+                var input = $("#"+id).find("input").eq(0);
+                if(input.hasClass("hiden")){
+                    input.removeClass("hiden");
+                    input.focus();
+                }
+            });
+            <!-- 娱乐双击事件 -->
+            $('.enterChange').dblclick(function () {
+                var tdId = $(this).attr('id');
+                if(tdId.match("enterNameChange")){
+                    tdEnter = "enterName";
+                }
+                if(tdId.match("enterPlaceChange")){
+                    tdEnter = "enterPlace";
+                }
+                if(tdId.match("enterInforChange")){
+                    tdEnter = "enterInfor";
+                }
+                if(tdId.match("foodInforChange")){
+                    tdEnter = "foodInfor";
+                }
+                var tr = $("#"+tdId).parent();
+                if($("#"+tdId).children().val().length>0){
+                    var data = "id="+tr.attr('id')+"&name="+tdEnter+"&value="+$("#"+tdId).children().val();
+                    var ThemeHttp=new XMLHttpRequest();
+                    ThemeHttp.open('POST',"http://localhost:8883/updateEnter",true);
+                    ThemeHttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                    ThemeHttp.send(data);
+                }
+                $("#"+tdId).children().addClass('hiden');
+            })
         })
 
-
-        // <!-- 风格管理/保存-->
+        <!-- 风格管理/添加 -->
         function  saveTheme() {
             var inputThemeForm = document.getElementById("inputThemeForm");
             var file = document.getElementById("inputImgKey");
@@ -161,18 +268,8 @@
                 }
             });
 
-            // ThemeHttp.onreadystatechange=function () {
-            //     if (ThemeHttp.readyState==4 && ThemeHttp.status==200){
-            //         console.log(ThemeHttp);
-            //         // var result =JSON.parse(ThemeHttp.responseText);
-            //         // // console.log(result);
-            //         // if(result.ok==1){
-            //         //     window.location.href='http://localhost:8882/index';
-            //         // }
-            //     }
-        //   }
         }
-        <!-- 风格管理/保存-->
+        <!-- 风格管理/删除 -->
         function deleteTheme(erg){
             // var roomNo=document.getElementsByClassName('roomNo');
             var themeId=erg.value;
@@ -184,6 +281,7 @@
             deleteThemeHttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
             deleteThemeHttp.send(data);
         }
+
         <!-- 房间管理/保存-->
         function saveRoom(){
             var inputRoomNo = document.getElementById('inputRoomNo');
@@ -214,6 +312,114 @@
             deleteRoomHttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
             deleteRoomHttp.send(data);
         }
+
+        <!-- 食物管理/添加 -->
+        function inputFood() {
+            var file = document.getElementById("inputFoodImgKey");
+            var inputFood = document.getElementById("inputFood");
+            var formData = new FormData(inputFood);
+            var fileObj = file.files[0];
+            formData.append("uploadImage", fileObj);
+            var url = "http://localhost:8888/inserFood";
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formData,
+                /**
+                 * 必须false才会避开jQuery对 formdata 的默认处理
+                 * XMLHttpRequest会对 formdata 进行正确的处理
+                 */
+                processData: false,
+                /**
+                 *必须false才会自动加上正确的Content-Type
+                 */
+                contentType: false,
+                success: function (responseStr) {
+                    // alert(formData);
+                },
+                error: function (responseStr) {
+                    // alert(responseStr.newPath);
+                }
+            });
+        }
+        <!-- 食物管理/删除 -->
+        function foodDelete(id) {
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                xmlhttp = new XMLHttpRequest();
+            }
+            else {
+                // IE6, IE5 浏览器执行代码
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    // if(xmlhttp.responseText){
+                    //     window.location.reload(true);
+                    // }
+                    alert(xmlhttp.responseText)
+                }
+            }
+            var url = "http://localhost:8888/foodDelete";
+            xmlhttp.open("POST", url, true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("id=" + id);
+        }
+
+        <!-- 娱乐管理/添加 -->
+        function inputEntertainment() {
+            var file = document.getElementById("inputEntetImgKey");
+            console.log(file);
+            var inputEntertainmentForm = document.getElementById("inputEntertainmentForm");
+            var EnterformData = new FormData(inputEntertainmentForm);
+            var fileObj = file.files[0];
+            console.log(fileObj)
+            EnterformData.append("uploadEnterImage", fileObj);
+            var url = "http://localhost:8888/inserEntertainment";
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: EnterformData,
+                /**
+                 * 必须false才会避开jQuery对 formdata 的默认处理
+                 * XMLHttpRequest会对 formdata 进行正确的处理
+                 */
+                processData: false,
+                /**
+                 *必须false才会自动加上正确的Content-Type
+                 */
+                contentType: false,
+                success: function (responseStr) {
+                    // alert(EnterformData);
+                },
+                error: function (responseStr) {
+                    // alert(responseStr.newPath);
+                }
+            });
+        }
+        <!-- 娱乐管理/删除 -->
+        function enterDelete(id) {
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                xmlhttp = new XMLHttpRequest();
+            }
+            else {
+                // IE6, IE5 浏览器执行代码
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    // document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+                }
+            }
+            var url = "http://localhost:8888/enterDelete";
+            xmlhttp.open("POST", url, true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("id=" + id);
+        }
+
     </script>
 </head>
 <body>
@@ -241,7 +447,7 @@
                 </li>
             </ul>
             <br>
-            <!--风格管理-->
+            风格管理
             <div class="StyleInfor">
                 <form id="inputThemeForm" class="form-horizontal" action="/upload" >
                     <div class="control-group">
@@ -302,7 +508,7 @@
                             <%=themeData[i].themeInfor %>
                         </td>
                         <td>
-                           <img class="hostelImg" src="<%=themeData[i].imgKey %>" />
+                            <img class="hostelImg" src="<%=themeData[i].imgKey %>" />
                         </td>
                         <td>
                             <button class="btn" onclick="deleteTheme(this)" value="<%=themeData[i].id %>">删除</button>
@@ -403,13 +609,7 @@
             </div>
             <!--餐饮-->
             <div class="foodInfor">
-                <form class="form-horizontal">
-                    <div class="control-group">
-                        <label class="control-label" for="inputFoodNo">菜品序号</label>
-                        <div class="controls">
-                            <input id="inputFoodNo" type="text" name="foodNo"/>
-                        </div>
-                    </div>
+                <form id="inputFood" class="form-horizontal" method="post" action="/inserFood">
                     <div class="control-group">
                         <label class="control-label" for="inputFoodName">菜品名称</label>
                         <div class="controls">
@@ -419,7 +619,7 @@
                     <div class="control-group">
                         <label class="control-label" for="inputFoodType">菜品种类</label>
                         <div class="controls">
-                            <input  id="inputFoodType" type="text" name="foodType"/>
+                            <input id="inputFoodType" type="text" name="foodType"/>
                         </div>
                     </div>
                     <div class="control-group">
@@ -431,7 +631,7 @@
                     <div class="control-group">
                         <label class="control-label" for="inputFoodInfo">菜品描述</label>
                         <div class="controls">
-                            <input id="inputFoodInfo" type="text" name="foodInfo"/>
+                            <input id="inputFoodInfo" type="text" name="foodInfor"/>
                         </div>
                     </div>
                     <div class="control-group">
@@ -440,149 +640,57 @@
                             <input id="inputFoodImgKey" type="file" name="foodImgKey"/>
                         </div>
                     </div>
-                </form>
-                <div class="control-group">
-                    <div class="controls" style="margin-top: 10px">
-                        <button type="submit" class="btn">保存</button> <button class="btn" >修改</button> <button class="btn" >删除</button>
+                    <div class="control-group">
+                        <div class="controls" style="margin-top: 10px">
+                            <button onclick="inputFood()" type="submit" class="btn">保存</button>
+                        </div>
                     </div>
-                </div>
+                </form>
                 <br>
+                <input type="text" id="foodText"><input type="button" value="搜索" id="foodSearch">
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>
-                            菜品序号
-                        </th>
-                        <th>
-                            菜品名称
-                        </th>
-                        <th>
-                            菜品种类
-                        </th>
-                        <th>
-                            菜品价格
-                        </th>
-                        <th>
-                            菜品描述
-                        </th>
-                        <th>
-                            菜品图片
-                        </th>
+                        <th>菜品序号</th><th>菜品名称</th><th>菜品种类</th><th>菜品价格</th><th>菜品描述</th><th>菜品图片</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
+                    <tbody id="foodTbody">
+                    <% var length = foodData.length; %>
+                    <% for(var i = 0; i < length; i++){ %>
+                    <tr id="<%= foodData[i].id %>">
                         <td>
-                            1
+                            <%= i + 1 %>
+                        </td>
+                        <td class="foodChange" id="foodNameChange<%= foodData[i].id %>">
+                            <%= foodData[i].foodName %>
+                            <input type="text" class="hiden" placeholder="双击保存修改">
+                        </td>
+                        <td class="foodChange" id="foodTypeChange<%= foodData[i].id %>">
+                            <%= foodData[i].foodType %>
+                            <input  type="text" class="hiden" placeholder="双击保存修改">
+                        </td>
+                        <td class="foodChange" id="foodPriceChange<%= foodData[i].id %>">
+                            <%= "￥" + foodData[i].foodPrice %>
+                            <input  type="text" class="hiden" placeholder="双击保存修改">
+                        </td>
+                        <td class="foodChange" id="foodInforChange<%= foodData[i].id %>">
+                            <%= foodData[i].foodInfor %>
+                            <input  type="text" class="hiden" placeholder="双击保存修改">
                         </td>
                         <td>
-                            TB - Monthly
+                            <img src="<%= foodData[i].imgKey %>" style="width: 100px;height: 100px;">
                         </td>
                         <td>
-                            01/04/2012
-                        </td>
-                        <td>
-                            Default
-                        </td>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            1
-                        </td>
-                    </tr>
-                    <tr class="success">
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            01/04/2012
-                        </td>
-                        <td>
-                            Approved
-                        </td>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            1
+                            <input type="button" value="删除" onclick="foodDelete(<%= foodData[i].id %>)">
                         </td>
                     </tr>
-                    <tr class="error">
-                        <td>
-                            2
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            02/04/2012
-                        </td>
-                        <td>
-                            Declined
-                        </td>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            1
-                        </td>
-                    </tr>
-                    <tr class="warning">
-                        <td>
-                            3
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            03/04/2012
-                        </td>
-                        <td>
-                            Pending
-                        </td>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            1
-                        </td>
-                    </tr>
-                    <tr class="info">
-                        <td>
-                            4
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            04/04/2012
-                        </td>
-                        <td>
-                            Call in to confirm
-                        </td>
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            1
-                        </td>
-                    </tr>
+                    <% } %>
                     </tbody>
                 </table>
             </div>
             <!--娱乐-->
             <div class="EntertainmentInfor">
-                <form class="form-horizontal">
-                    <div class="control-group">
-                        <label class="control-label" for="inputEnterNo">娱乐设施序号</label>
-                        <div class="controls">
-                            <input id="inputEnterNo" type="text" name="EnterNo"/>
-                        </div>
-                    </div>
+                <form id="inputEntertainmentForm" method="post" action="/inserEntertainment" class="form-horizontal">
                     <div class="control-group">
                         <label class="control-label" for="inputEnterName">娱乐设施名称</label>
                         <div class="controls">
@@ -592,28 +700,29 @@
                     <div class="control-group">
                         <label class="control-label" for="inputEnterPlace">娱乐地点</label>
                         <div class="controls">
-                            <input  id="inputEnterPlace" type="text" name="enterPlace"/>
+                            <input id="inputEnterPlace" type="text" name="enterPlace"/>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="inputEnterInfor">描述</label>
                         <div class="controls">
-                            <input id="inputEnterInfor" type="text" name="enterInfor" />
+                            <input id="inputEnterInfor" type="text" name="enterInfor"/>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="inputImgKey">图片</label>
                         <div class="controls">
-                            <input id="inputImgKey" type="text" name="enterInfor" />
+                            <input id="inputEntetImgKey" type="file" name="EnterImgKey"/>
                         </div>
                     </div>
                     <div class="control-group">
                         <div class="controls" style="margin-top: 10px">
-                            <button type="submit" class="btn">保存</button> <button type="submit" class="btn">修改</button> <button type="submit" class="btn">删除</button>
+                            <button type="submit" onclick="inputEntertainment()" class="btn">保存</button>
                         </div>
                     </div>
                 </form>
                 <br>
+                <input type="text" id="enterText"><input type="button" value="搜索" id="enterSearch">
                 <table class="table">
                     <thead>
                     <tr>
@@ -634,92 +743,35 @@
                         </th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
+                    <tbody id="enterTbody">
+                    <% var enterlength = enterData.length; %>
+                    <% for(var i = 0; i < enterlength; i++){ %>
+                    <tr id="<%= enterData[i].id %>">
                         <td>
-                            1
+                            <%= i + 1 %>
+                            <input type="text" class="hiden" placeholder="双击保存修改">
+                        </td>
+                        <td class="enternge" id="enterNameChange<%= enterData[i].id %>">
+                            <%= enterData[i].enterName %>
+                            <input type="text" class="hiden" placeholder="双击保存修改">
+
+                        </td>
+                        <td class="enterChange" id="enterPlaceChange<%= enterData[i].id %>">
+                            <%= enterData[i].enterPlace %>
+                            <input type="text" class="hiden" placeholder="双击保存修改">
+                        </td>
+                        <td class="enterChange" id="enterInforChange<%= enterData[i].id %>">
+                            <%= enterData[i].enterInfor %>
+                            <input type="text" class="hiden" placeholder="双击保存修改">
                         </td>
                         <td>
-                            TB - Monthly
+                            <img src="<%= enterData[i].imgKey %>" style="width: 100px;height: 100px;">
                         </td>
                         <td>
-                            01/04/2012
-                        </td>
-                        <td>
-                            Default
-                        </td>
-                        <td>
-                            Approved
-                        </td>
-                    </tr>
-                    <tr class="success">
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            01/04/2012
-                        </td>
-                        <td>
-                            Approved
-                        </td>
-                        <td>
-                            Approved
+                            <input type="button" value="删除" onclick="enterDelete(<%= enterData[i].id %>)">
                         </td>
                     </tr>
-                    <tr class="error">
-                        <td>
-                            2
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            02/04/2012
-                        </td>
-                        <td>
-                            Declined
-                        </td>
-                        <td>
-                            Approved
-                        </td>
-                    </tr>
-                    <tr class="warning">
-                        <td>
-                            3
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            03/04/2012
-                        </td>
-                        <td>
-                            Pending
-                        </td>
-                        <td>
-                            Approved
-                        </td>
-                    </tr>
-                    <tr class="info">
-                        <td>
-                            4
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            04/04/2012
-                        </td>
-                        <td>
-                            Call in to confirm
-                        </td>
-                        <td>
-                            Approved
-                        </td>
-                    </tr>
+                    <% } %>
                     </tbody>
                 </table>
             </div>
