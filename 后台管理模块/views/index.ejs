@@ -27,6 +27,23 @@
         .EntertainmentInfor{
             display: none;
         }
+
+        .hostelImg{
+            width: 60px;
+            height: 60px;
+        }
+        .searchRoom{
+            margin-left: 40%;
+        }
+
+        .search_roombtn{
+            margin-left: 56%;
+            margin-top: -51px;
+        }
+
+        .hiden {
+            display: none;
+        }
     </style>
     <script>
         $(function () {
@@ -61,15 +78,61 @@
                 }
             });
 
+            $(".search_roombtn").click(function () {
+                var trList = $(".roomTbody").children("tr");
+                var trLength = trList.length;
+                for (var i = 0; i < trLength; i++) {
+                    var tdArr = trList.eq(i).find("td");
+                    var tdRoomNo = tdArr.eq(1).text();
+                    var tdRoomTheme = tdArr.eq(2).text();
+                    var tdRoomAccomondate = tdArr.eq(3).text();
+                    var tdRoomPrice = tdArr.eq(4).text();
+                    var inputRoomSearch = $("#inputRoomSearch").val();
+                    if (tdRoomNo.match(inputRoomSearch) || tdRoomTheme.match(inputRoomSearch) || tdRoomAccomondate.match(inputRoomSearch) || tdRoomPrice.match(inputRoomSearch)) {
+                        trList.eq(i).show();
+                    } else {
+                        trList.eq(i).hide();
+                    }
+                }
+            });
+
+            $('.updata_room').click(function () {
+                var id = this.getAttribute('id');
+                $("#"+id).children().removeClass('hiden');
+                $("#"+id).children().focus();
+            })
+            $('.updata_room').dblclick(function () {
+                var tdId = this.getAttribute('id');
+                if(tdId.match("ThemeId")){
+                    tdName = "themeId";
+                }
+                else if(tdId.match("Accommodate")){
+                    tdName = "accommodate";
+                }
+                if(tdId.match("RoomPrice")){
+                    tdName = "roomPrice";
+                }
+                var tr = $("#"+tdId).parent();
+                if($("#"+tdId).children().val().length>0){
+                    var data = "id="+tr.attr('id')+"&name="+tdName+"&value="+$("#"+tdId).children().val();
+                    var ThemeHttp=new XMLHttpRequest();
+                    ThemeHttp.open('POST',"http://localhost:8883/updateRoom",true);
+                    ThemeHttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                    ThemeHttp.send(data);
+                }
+                $("#"+tdId).children().addClass('hiden');
+            })
         })
 
+
+        // <!-- 风格管理/保存-->
         function  saveTheme() {
             var inputThemeForm = document.getElementById("inputThemeForm");
             var file = document.getElementById("inputImgKey");
             var formData = new FormData(inputThemeForm);
             var fileObj =file.files[0];
             formData.append("uploadImage", fileObj);
-            var url = "http://localhost:8882/index";
+            var url = "http://localhost:8883/upload";
             // var ThemeHttp=new XMLHttpRequest();
             // ThemeHttp.open('POST',url,true);
             // ThemeHttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
@@ -98,8 +161,6 @@
                 }
             });
 
-
-
             // ThemeHttp.onreadystatechange=function () {
             //     if (ThemeHttp.readyState==4 && ThemeHttp.status==200){
             //         console.log(ThemeHttp);
@@ -111,7 +172,48 @@
             //     }
         //   }
         }
-
+        <!-- 风格管理/保存-->
+        function deleteTheme(erg){
+            // var roomNo=document.getElementsByClassName('roomNo');
+            var themeId=erg.value;
+            var url="http://localhost:8883/deleteTheme";
+            data="themeId="+themeId;
+            console.log(themeId);
+            var deleteThemeHttp = new XMLHttpRequest();
+            deleteThemeHttp.open('post',url,true);
+            deleteThemeHttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            deleteThemeHttp.send(data);
+        }
+        <!-- 房间管理/保存-->
+        function saveRoom(){
+            var inputRoomNo = document.getElementById('inputRoomNo');
+            var inputThemeName=document.getElementById('inputTheme');
+            var inputAccomodate=document.getElementById('inputAccomodate');
+            var inputRoomPrice=document.getElementById('inputRoomPrice');
+            var roomNo=inputRoomNo.value;
+            var index=inputThemeName.selectedIndex;
+            var themeName=inputThemeName.options[index].text;
+            var accomodate=inputAccomodate.value;
+            var roomPrice=inputRoomPrice.value;
+            data="roomNo="+roomNo+"&themeName="+themeName+"&accomodate="+accomodate+"&roomPrice="+roomPrice;
+            console.log(data);
+            var url="http://localhost:8883/addRoom";
+            var roomHttp=new XMLHttpRequest();
+            roomHttp.open('POST',url,true);
+            roomHttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            roomHttp.send(data);
+        }
+        <!-- 房间管理/删除-->
+        function deleteRoom(erg){
+            // var roomNo=document.getElementsByClassName('roomNo');
+            var roomNo=erg.value;
+            var url="http://localhost:8883/deleteRoom";
+            data="roomNo="+roomNo;
+            var deleteRoomHttp = new XMLHttpRequest();
+            deleteRoomHttp.open('post',url,true);
+            deleteRoomHttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            deleteRoomHttp.send(data);
+        }
     </script>
 </head>
 <body>
@@ -141,13 +243,7 @@
             <br>
             <!--风格管理-->
             <div class="StyleInfor">
-                <form id="inputThemeForm" class="form-horizontal" action="/index" >
-                    <!--<div class="control-group">-->
-                        <!--<label class="control-label" for="inputThemeNo">类型编号</label>-->
-                        <!--<div class="controls">-->
-                            <!--<input id="inputThemeNo" type="text" name="inputThemeName"/>-->
-                        <!--</div>-->
-                    <!--</div>-->
+                <form id="inputThemeForm" class="form-horizontal" action="/upload" >
                     <div class="control-group">
                         <label class="control-label" for="inputThemeName">风格名称</label>
                         <div class="controls">
@@ -169,7 +265,7 @@
                 </form>
                 <div class="control-group">
                     <div class="controls" style="margin-top: 10px">
-                        <button  class="btn" onclick="saveTheme()">保存</button> <button class="btn" onclick="updataTheme()">修改</button> <button type="submit" class="btn" onclick="deleteTheme()">删除</button>
+                        <button  class="btn" onclick="saveTheme()">保存</button> <button class="btn">修改</button>
                     </div>
                 </div>
                 <br>
@@ -188,85 +284,37 @@
                         <th>
                             图片
                         </th>
+                        <th>
+                            操作
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
+                    <% for (var i=0;i<themeData.length;i++){ %>
                     <tr>
                         <td>
-                            1
+                            <%=i+1%>
                         </td>
                         <td>
-                            TB - Monthly
+                            <%=themeData[i].themeName %>
                         </td>
                         <td>
-                            01/04/2012
+                            <%=themeData[i].themeInfor %>
                         </td>
                         <td>
-                            Default
+                           <img class="hostelImg" src="<%=themeData[i].imgKey %>" />
+                        </td>
+                        <td>
+                            <button class="btn" onclick="deleteTheme(this)" value="<%=themeData[i].id %>">删除</button>
                         </td>
                     </tr>
-                    <tr class="success">
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            01/04/2012
-                        </td>
-                        <td>
-                            Approved
-                        </td>
-                    </tr>
-                    <tr class="error">
-                        <td>
-                            2
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            02/04/2012
-                        </td>
-                        <td>
-                            Declined
-                        </td>
-                    </tr>
-                    <tr class="warning">
-                        <td>
-                            3
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            03/04/2012
-                        </td>
-                        <td>
-                            Pending
-                        </td>
-                    </tr>
-                    <tr class="info">
-                        <td>
-                            4
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            04/04/2012
-                        </td>
-                        <td>
-                            Call in to confirm
-                        </td>
-                    </tr>
+                    <%} %>
                     </tbody>
                 </table>
             </div>
             <!--房间管理-->
             <div class="HomeInfor">
-                <form class="form-horizontal">
+                <form class="form-horizontal" action="/addRoom" method="post">
                     <div class="control-group">
                         <label class="control-label" for="inputRoomNo">房间编号</label>
                         <div class="controls">
@@ -276,7 +324,11 @@
                     <div class="control-group">
                         <label class="control-label" for="inputThemeName">房间风格</label>
                         <div class="controls">
-                            <input id="inputThemeName" type="text" name="themeName" />
+                            <select name="inputThemeName" id="inputTheme">
+                                <%for (var i=0;i<themeData.length;i++) {%>
+                                <option value="<%=i %>"><%=themeData[i].themeName %></option>
+                                <%}%>
+                            </select>
                         </div>
                     </div>
                     <div class="control-group">
@@ -294,9 +346,15 @@
                 </form>
                 <div class="control-group">
                     <div class="controls" style="margin-top: 10px">
-                        <button type="submit" class="btn">保存</button> <button type="submit" class="btn">修改</button> <button type="submit" class="btn">删除</button>
+                        <button  class="btn"  onclick="saveRoom()">保存</button>
                     </div>
                 </div>
+                <br>
+                <form  class="form-search searchRoom" >
+                    <input  class="input-medium search-query" id="inputRoomSearch" style="height: 32px;"  type="text" />
+                </form>
+                <button  class="btn search_roombtn" >搜索</button>
+
                 <br>
                 <table class="table">
                     <thead>
@@ -308,84 +366,38 @@
                             房间风格
                         </th>
                         <th>
-                            容纳人数
+                            容纳人数<span style="color:#ccc;">(可修改)</span>
                         </th>
                         <th>
-                            价格
+                            价格<span style="color:#ccc;">(可修改)</span>
+                        </th>
+                        <th>
+                            操作
                         </th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <td>
-                            1
+                    <tbody class="roomTbody">
+                    <%for(var i=0;i<roomData.length;i++){%>
+                    <tr class="room_hidden" id="<%=roomData[i].id%>">
+                        <td class="roomNo">
+                            <%=roomData[i].roomNO %>
+                        </td>
+                        <td class="updata_room">
+                            <%=roomData[i].themeId %>
+                        </td>
+                        <td class="updata_room" id="tdAccommodate<%=roomData[i].id%>">
+                            <%=roomData[i].accommodate %>
+                            <input type="text" class="hiden">
+                        </td>
+                        <td class="updata_room" id="tdroomPrice<%=roomData[i].id%>">
+                            <%=roomData[i].roomPrice %>
+                            <input type="text" class="hiden">
                         </td>
                         <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            01/04/2012
-                        </td>
-                        <td>
-                            Default
-                        </td>
-                    </tr>
-                    <tr class="success">
-                        <td>
-                            1
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            01/04/2012
-                        </td>
-                        <td>
-                            Approved
+                        <button type="submit" class="btn" onclick="deleteRoom(this)" value="<%=roomData[i].roomNO %>">删除</button>
                         </td>
                     </tr>
-                    <tr class="error">
-                        <td>
-                            2
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            02/04/2012
-                        </td>
-                        <td>
-                            Declined
-                        </td>
-                    </tr>
-                    <tr class="warning">
-                        <td>
-                            3
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            03/04/2012
-                        </td>
-                        <td>
-                            Pending
-                        </td>
-                    </tr>
-                    <tr class="info">
-                        <td>
-                            4
-                        </td>
-                        <td>
-                            TB - Monthly
-                        </td>
-                        <td>
-                            04/04/2012
-                        </td>
-                        <td>
-                            Call in to confirm
-                        </td>
-                    </tr>
+                    <%} %>
                     </tbody>
                 </table>
             </div>
@@ -431,7 +443,7 @@
                 </form>
                 <div class="control-group">
                     <div class="controls" style="margin-top: 10px">
-                        <button type="submit" class="btn" onclick="saveFood()">保存</button> <button class="btn" onclick="updataFood()">修改</button> <button class="btn" onclick="daleteFood()">删除</button>
+                        <button type="submit" class="btn">保存</button> <button class="btn" >修改</button> <button class="btn" >删除</button>
                     </div>
                 </div>
                 <br>
