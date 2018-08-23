@@ -4,15 +4,19 @@ function QQutil() {
         // 引入模块
         var COS = require('cos-nodejs-sdk-v5');
         this.cos = new COS({
-            // 必选参数
+            // // （王婷婷使用）必选参数
+            // SecretId: "AKIDY0zribD3VkohS2IkuvmUHyV7dx4zKEYk",
+            // SecretKey: "DF5kFYfZIm6GE0ay98xa6TjnfLo6C9vZ"
+            // （彭大寒使用）必选参数
             SecretId: "AKIDTnBwlXSvfKqBKISkBSr7BFB7rY6TbhaI",
-            SecretKey: "49A0hCUm5RgmjgR2Ur4ILDvUr264xeAl",
+            SecretKey: "49A0hCUm5RgmjgR2Ur4ILDvUr264xeAl"
         });
     }
 
     this.insert=function (key,path,fs,call) {
         this.cos.putObject({
-            Bucket: "hotel-1257212771", /* 必须 */ // Bucket 格式：test-1250000000
+            // Bucket: "hostel-1257212646", /* 必须 */ // Bucket 格式：test-1250000000（王婷婷使用）
+            Bucket: "hotel-1257212771", /* 必须 */ // Bucket 格式：test-1250000000（彭大寒使用）
             Region: "ap-chengdu",
             Key: key, /* 必须 */
             TaskReady: function (tid) {
@@ -37,7 +41,8 @@ function QQutil() {
     }
     this.query=function (key,call) {
         var url= this.cos.getObjectUrl({
-            Bucket: "hotel-1257212771", // Bucket 格式：test-1250000000
+            // Bucket: "hostel-1257212646", /* 必须 */ // Bucket 格式：test-1250000000（王婷婷使用）
+            Bucket: "hotel-1257212771", /* 必须 */ // Bucket 格式：test-1250000000（彭大寒使用）
             Region: "ap-chengdu",
             Key: key,
             Expires: 600000,
