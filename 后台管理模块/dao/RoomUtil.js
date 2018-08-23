@@ -6,7 +6,8 @@ function RoomUtil() {
         connection = mysql.createConnection({
             host: 'localhost',       //主机 ip
             user: 'root',            //MySQL认证用户名
-            password: 'wtt19950820/',                //MySQL认证用户密码
+            // password: 'wtt19950820/',  //MySQL认证用户密码（王婷婷使用）
+            password: 'root',                //MySQL认证用户密码（彭大寒使用）
             port: '3306',                 //端口号
             database: 'hostel_db'          //数据库里面的数据
         });
