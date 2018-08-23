@@ -1,0 +1,82 @@
+<!--index.wxml-->
+<!-- 主题推荐 -->
+<view class='recommend_box'>
+  <scroll-view class="scroll-view" scroll-x="true">
+    <image class='recommend_img' src='../../images/Fairytale_castle.jpg'></image>
+    <image class='recommend_img' src='../../images/blue_ocean.jpeg'></image>
+    <image class='recommend_img' src='../../images/Titanic.png'></image>
+    <image class='recommend_img' src='../../images/Doraemon.jpeg'></image>
+    <image class='recommend_img' src='../../images/pink_memories.jpg'></image>
+    <image class='recommend_img' src='../../images/blue_dock.jpg'></image>
+  </scroll-view>
+</view>
+<view class='theme_box'>
+  <view class='theme'>
+    <image src='../../images/tree.jpg' class='theme_img'></image>
+    <text class='theme_name'>森林</text>
+  </view>
+  <view class='theme'>
+   <image src='../../images/ocean.jpg' class='theme_img'></image>
+    <text class='theme_name'>海洋</text>
+  </view>
+  <view class='theme'>
+    <image src='../../images/red_maple_leaf.jpg' class='theme_img'></image>
+    <text class='theme_name'>枫叶</text>
+  </view>
+  <view class='theme'>
+    <image src='../../images/grassland.jpg' class='theme_img'></image>
+    <text class='theme_name'>草原</text>
+  </view>
+  <view class='theme'>
+    <view class='theme_img'></view>
+    <text class='theme_name'>5</text>
+  </view>
+  <view class='theme'>
+    <view class='theme_img'></view>
+    <text class='theme_name'>6</text>
+  </view>
+  <view class='theme'>
+    <view class='theme_img'></view>
+    <text class='theme_name'>7</text>
+  </view>
+  <view class='theme'>
+    <view class='theme_img'></view>
+    <text class='theme_name'>8</text>
+  </view>
+</view>
+<view class='entertainment_box'>
+  <view class='entertainment_background'>
+    <scroll-view class="scroll-view" scroll-x="true">
+      <view class='entertainment_list'>
+        <image class='entertainment_img' src='../../images/Fairytale_castle.jpg'></image>
+        <view class='entertainment_mask'></view>
+        <text class='entertainment_name'>童话城堡</text>
+      </view>
+      <view class='entertainment_list'>
+        <image class='entertainment_img' src='../../images/blue_ocean.jpeg'></image>
+        <view class='entertainment_mask'></view>
+        <text class='entertainment_name'>蓝色海洋</text>
+      </view>
+      <view class='entertainment_list'>
+        <image class='entertainment_img' src='../../images/Titanic.png'></image>
+        <view class='entertainment_mask'></view>
+        <text class='entertainment_name'>经典怀旧</text>
+      </view>
+      <view class='entertainment_list'>
+        <image class='entertainment_img' src='../../images/Doraemon.jpeg'></image>
+        <view class='entertainment_mask'></view>
+        <text class='entertainment_name'>哆啦A梦</text>
+      </view>
+      <view class='entertainment_list'>
+        <image class='entertainment_img' src='../../images/pink_memories.jpg'></image>
+        <view class='entertainment_mask'></view>
+        <text class='entertainment_name'>粉色回忆</text>
+      </view>
+      <view class='entertainment_list'>
+        <image class='entertainment_img' src='../../images/blue_dock.jpg'></image>
+        <view class='entertainment_mask'></view>
+        <text class='entertainment_name'>蓝色船坞</text>
+      </view>
+    </scroll-view>
+  </view>
+</view>
