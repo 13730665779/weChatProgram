@@ -14,8 +14,8 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 // *显示*
 app.get('/index', function (req, res) {
     //风格信息
-    var ThemeUtil_WTT=require('./dao/ThemeUtil_WTT');
-    var theme=new ThemeUtil_WTT();
+    var ThemeUtil=require('./dao/ThemeUtil');
+    var theme=new ThemeUtil();
     theme.init();
     var QQutil2=require('./util/QQutil2');
     var qqutil=new QQutil2();
@@ -102,8 +102,8 @@ app.post("/upload",function (req, res) {
         qqutil.insert(fileKey,path,fs,function() {
             var themeName = fields.themeName;
             var themeInfor = fields.themeInfor;
-            var ThemeUtil_WTT=require('./dao/ThemeUtil_WTT');
-            var theme=new ThemeUtil_WTT();
+            var ThemeUtil=require('./dao/ThemeUtil');
+            var theme=new ThemeUtil();
             theme.init();
             theme.inserTheme(themeName,themeInfor,fileKey);
         });
@@ -116,8 +116,8 @@ app.post("/upload",function (req, res) {
 //*删除风格*
 app.post('/deleteTheme',urlencodedParser,function (req,res) {
     var themeId=req.body.themeId;
-    var ThemeUtil_WTT = require("./dao/ThemeUtil_WTT");
-    var Theme = new ThemeUtil_WTT();
+    var ThemeUtil= require("./dao/ThemeUtil");
+    var Theme = new ThemeUtil();
     Theme.init();
     Theme.deleteTheme(themeId);
 })
@@ -127,8 +127,8 @@ app.post("/addRoom",urlencodedParser,function(req,res){
     var themeName=req.body.themeName;
     var accomodate = req.body.accomodate
     var roomPrice = req.body.roomPrice;
-    var ThemeUtil_WTT=require('./dao/ThemeUtil_WTT');
-    var theme=new ThemeUtil_WTT();
+    var ThemeUtil=require('./dao/ThemeUtil');
+    var theme=new ThemeUtil();
     theme.init();
     var id;
     theme.queryThemeID(themeName,function (themeId) {
